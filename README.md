@@ -184,6 +184,23 @@ This project is licensed under the ISC License.
 4. Push to the branch
 5. Create a Pull Request
 
+## 🌍 Deployment
+
+### Deploy to Render (Recommended)
+
+For detailed Render deployment instructions, see **[RENDER_DEPLOYMENT.md](./RENDER_DEPLOYMENT.md)**
+
+Quick steps:
+1. Set up MongoDB Atlas
+2. Push code to GitHub
+3. Deploy backend to Render
+4. Deploy frontend to Render
+5. Configure environment variables
+
+### Deploy with Docker
+
+For Docker deployment, see **[DEPLOYMENT.md](./DEPLOYMENT.md)**
+
 ## 📞 Support
 
 For support, please contact info@chainflow.com or create an issue in the repository.

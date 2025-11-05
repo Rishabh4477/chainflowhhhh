@@ -4,6 +4,8 @@ import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import rateLimit from 'express-rate-limit';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 import authRoutes from './routes/auth.js';
 import inventoryRoutes from './routes/inventory.js';
@@ -14,6 +16,10 @@ import userRoutes from './routes/users.js';
 
 // Load environment variables
 dotenv.config();
+
+// Get __dirname equivalent in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -45,6 +51,16 @@ app.use('/api/users', userRoutes);
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'ChainFlow API is running' });
 });
+
+// Serve static files in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'public')));
+  
+  // Serve React app for any non-API routes
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  });
+}
 
 // Error handling middleware
 app.use((err, req, res, next) => {

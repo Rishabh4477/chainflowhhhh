@@ -5,26 +5,24 @@ import jwt from 'jsonwebtoken';
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'Please provide a name'],
-    trim: true,
-    maxlength: [50, 'Name cannot be more than 50 characters']
+    default: 'User',
+    trim: true
   },
   email: {
     type: String,
     required: [true, 'Please provide an email'],
     unique: true,
-    lowercase: true,
-    match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please provide a valid email']
+    lowercase: true
   },
   password: {
     type: String,
     required: [true, 'Please provide a password'],
-    minlength: 6,
+    minlength: 1,
     select: false
   },
   company: {
     type: String,
-    required: [true, 'Please provide company name'],
+    default: 'Default Company',
     trim: true
   },
   role: {
@@ -61,10 +59,11 @@ const userSchema = new mongoose.Schema({
 // Encrypt password before saving
 userSchema.pre('save', async function(next) {
   if (!this.isModified('password')) {
-    next();
+    return next();
   }
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
+  next();
 });
 
 // Match password
