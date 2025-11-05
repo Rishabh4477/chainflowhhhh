@@ -107,7 +107,7 @@ const Landing = () => {
           <div className="mt-16 relative">
             <div className="bg-white rounded-lg shadow-2xl p-8">
               <img 
-                src="/api/placeholder/1200/600" 
+                src="https://placehold.co/1200x600/e5e7eb/1f2937?text=ChainFlow+Dashboard+Preview" 
                 alt="ChainFlow Dashboard" 
                 className="rounded-lg w-full"
               />

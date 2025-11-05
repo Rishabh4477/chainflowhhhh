@@ -20,10 +20,10 @@ const handleValidationErrors = (req, res, next) => {
 // @desc    Register a new user
 // @access  Public
 router.post('/register', [
-  body('name').notEmpty().withMessage('Name is required'),
-  body('email').isEmail().withMessage('Please provide a valid email'),
-  body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
-  body('company').notEmpty().withMessage('Company is required'),
+  body('name').optional(),
+  body('email').notEmpty().withMessage('Email is required'),
+  body('password').notEmpty().withMessage('Password is required'),
+  body('company').optional(),
   handleValidationErrors
 ], async (req, res) => {
   try {
@@ -40,10 +40,10 @@ router.post('/register', [
 
     // Create user
     const user = await User.create({
-      name,
+      name: name || 'User',
       email,
       password,
-      company,
+      company: company || 'Default Company',
       role: role || 'viewer'
     });
 
@@ -75,7 +75,7 @@ router.post('/register', [
 // @desc    Login user
 // @access  Public
 router.post('/login', [
-  body('email').isEmail().withMessage('Please provide a valid email'),
+  body('email').notEmpty().withMessage('Email is required'),
   body('password').notEmpty().withMessage('Password is required'),
   handleValidationErrors
 ], async (req, res) => {

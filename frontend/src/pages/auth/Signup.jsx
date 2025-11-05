@@ -37,24 +37,12 @@ const Signup = () => {
   const validateForm = () => {
     const newErrors = {};
     
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
-    }
-    
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
-    }
-    
-    if (!formData.company.trim()) {
-      newErrors.company = 'Company name is required';
     }
     
     if (!formData.password) {
       newErrors.password = 'Password is required';
-    } else if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
     }
     
     if (formData.password !== formData.confirmPassword) {
@@ -115,11 +103,10 @@ const Signup = () => {
                   id="name"
                   name="name"
                   type="text"
-                  required
                   value={formData.name}
                   onChange={handleChange}
                   className={`input-field pl-10 ${errors.name ? 'border-red-500' : ''}`}
-                  placeholder="Aarav Sharma"
+                  placeholder="Aarav Sharma (optional)"
                 />
                 <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
               </div>
@@ -155,11 +142,10 @@ const Signup = () => {
                   id="company"
                   name="company"
                   type="text"
-                  required
                   value={formData.company}
                   onChange={handleChange}
                   className={`input-field pl-10 ${errors.company ? 'border-red-500' : ''}`}
-                  placeholder="Bharat Industries"
+                  placeholder="Bharat Industries (optional)"
                 />
                 <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
               </div>
